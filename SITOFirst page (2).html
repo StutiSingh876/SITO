@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SITO - AI-Powered Smart Train Traffic Control</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Fallback/Custom CSS -->
+    <!-- While Tailwind is used primarily, this style block provides fallbacks and custom styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Custom styles for a subtle shadow and transition on cards */
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
+    
+    <script>
+        // Custom configuration for Tailwind CSS, enabling class-based dark mode
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200 transition-colors duration-300">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm dark:shadow-slate-800">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600 flex items-center">
+                <i class="fa-solid fa-train-subway mr-2"></i>
+                SITO
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">Home</a>
+                <a href="#features" class="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">Features</a>
+                <a href="#" class="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">Dashboard</a>
+                <a href="http://[::1]:8000/SITOmainPage%20%281%29.html" target="_blank" class="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">Control</a>
+
+                <a href="#about" class="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">About</a>
+            </div>
+            <div class="flex items-center gap-4">
+                 <a href="SITOmainPage.html" class="hidden md:block bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-transform hover:scale-105">
+                    Dashboard
+                </a>
+                <button id="theme-toggle" type="button" class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none focus:ring-4 focus:ring-slate-200 dark:focus:ring-slate-700 rounded-lg text-sm p-2.5">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden text-2xl dark:text-slate-300">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 dark:bg-slate-800">
+            <a href="#home" class="block py-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-500">Home</a>
+            <a href="#features" class="block py-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-500">Features</a>
+            <a href="#" class="block py-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-500">Dashboard</a>
+            <a href="#" class="block py-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-500">Control</a>
+            <a href="#about" class="block py-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-500">About</a>
+            <a href="#" class="block mt-2 text-center bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold">Get Started</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative bg-cover bg-center text-white" style="background-image: url('')">
+             <!-- Overlay -->
+            <div class="absolute inset-0 bg-black/60"></div>
+            <div class="relative container mx-auto px-6 py-16 md:py-24 text-center">
+                <div class="max-w-4xl mx-auto">
+                    <span class="text-blue-400 font-semibold mb-2 block">Next-Generation Railway Control</span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-4">AI-Powered Smart</h1>
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-blue-400 mb-6">Train Traffic Control</h1>
+                    <p class="text-slate-300 max-w-2xl mx-auto text-lg mb-10">
+                        Revolutionizing railway operations with intelligent automation, real-time optimization, and predictive analytics for enhanced efficiency, safety, and scalability.
+                    </p>
+
+                    <div class="flex justify-center items-center space-x-4 mb-16">
+                        <a href="#features" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-transform hover:scale-105 flex items-center">
+                            Get Started <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="#" class="bg-white/90 text-slate-800 px-8 py-3 rounded-lg font-semibold text-lg hover:bg-white transition-transform hover:scale-105 flex items-center">
+                            <i class="fa-solid fa-play-circle mr-2"></i> Watch Demo
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                        <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                            <i class="fa-solid fa-chart-line text-blue-400 text-3xl mb-3"></i>
+                            <p class="text-4xl font-bold mb-1">40%</p>
+                            <p class="text-slate-300">Efficiency Gain</p>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                            <i class="fa-solid fa-shield-halved text-green-400 text-3xl mb-3"></i>
+                            <p class="text-4xl font-bold mb-1">99.9%</p>
+                            <p class="text-slate-300">Safety Rate</p>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                            <i class="fa-solid fa-bolt text-yellow-400 text-3xl mb-3"></i>
+                            <p class="text-4xl font-bold mb-1">Real-time</p>
+                            <p class="text-slate-300">Processing</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-16 md:py-24 bg-white dark:bg-slate-800">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Powerful Features to Optimize Your Network</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg">Our Smart Intelligent Traffic Orchestrator (SITO) comes packed with tools to enhance control and efficiency.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Feature Cards -->
+                    <div class="feature-card bg-slate-50 dark:bg-slate-700 p-8 rounded-xl border border-slate-200 dark:border-slate-600">
+                        <div class="text-blue-600 dark:text-blue-500 text-4xl mb-4"><i class="fa-solid fa-brain"></i></div>
+                        <h3 class="text-xl font-bold mb-2">AI Optimization Engine</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Uses advanced algorithms to calculate the most efficient, conflict-free schedules and ML models to proactively predict future delays.</p>
+                    </div>
+                    <div class="feature-card bg-slate-50 dark:bg-slate-700 p-8 rounded-xl border border-slate-200 dark:border-slate-600">
+                        <div class="text-blue-600 dark:text-blue-500 text-4xl mb-4"><i class="fa-solid fa-cube"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Digital Twin Technology</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Creates a dynamic virtual representation of the railway section for comprehensive analysis, simulation, and modeling.</p>
+                    </div>
+                    <div class="feature-card bg-slate-50 dark:bg-slate-700 p-8 rounded-xl border border-slate-200 dark:border-slate-600">
+                        <div class="text-blue-600 dark:text-blue-500 text-4xl mb-4"><i class="fa-solid fa-satellite-dish"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Real-time Monitoring</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Automatically detects and flags potential conflicts, enabling dynamic scheduling and rapid re-optimization during disruptions.</p>
+                    </div>
+                    <div class="feature-card bg-slate-50 dark:bg-slate-700 p-8 rounded-xl border border-slate-200 dark:border-slate-600">
+                        <div class="text-blue-600 dark:text-blue-500 text-4xl mb-4"><i class="fa-solid fa-microchip"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Edge AI Support</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Enables ultra-low latency inference, allowing critical decisions to be made instantly, close to the data sources.</p>
+                    </div>
+                    <div class="feature-card bg-slate-50 dark:bg-slate-700 p-8 rounded-xl border border-slate-200 dark:border-slate-600">
+                        <div class="text-blue-600 dark:text-blue-500 text-4xl mb-4"><i class="fa-solid fa-vial-circle-check"></i></div>
+                        <h3 class="text-xl font-bold mb-2">"What-If" Simulation</h3>
+                        <p class="text-slate-600 dark:text-slate-400">A digital sandbox allows controllers to test hypothetical scenarios to understand network impact before making a decision.</p>
+                    </div>
+                    <div class="feature-card bg-slate-50 dark:bg-slate-700 p-8 rounded-xl border border-slate-200 dark:border-slate-600">
+                        <div class="text-blue-600 dark:text-blue-500 text-4xl mb-4"><i class="fa-solid fa-lightbulb"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Explainable AI (XAI)</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Provides clear, human-readable justifications for every recommendation, empowering controllers with transparent insights.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="text-center md:text-left">
+                         <h2 class="text-3xl md:text-4xl font-bold mb-4">About Our Solution</h2>
+                         <p class="text-blue-600 dark:text-blue-500 font-semibold text-xl mb-6">The Smart Intelligent Traffic Orchestrator (SITO)</p>
+                         <div class="space-y-6 text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                             <p>
+                                 As railway network congestion and operational complexity grow, the traditional manual approach to train traffic control faces significant limitations. There is a critical need for an intelligent, data-driven system to enhance the efficiency, punctuality, and overall utilization of the existing railway infrastructure.
+                             </p>
+                             <p>
+                                 SITO is a decision-support system that acts as a co-pilot for section controllers. It uses a powerful combination of AI, Operations Research, and Reinforcement Learning to optimize section throughput and provide real-time guidance for conflict-free, safe, and efficient train operations.
+                             </p>
+                         </div>
+                    </div>
+                     <div>
+                        <img src="https://i0.wp.com/urbanacres.in/wp-content/uploads/2025/07/Summer-Special-Train.jpg" alt="Modern train on a track" class="rounded-xl shadow-2xl w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Train+Image';">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 dark:bg-slate-950 text-slate-300 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 RailAI. All Rights Reserved. Revolutionizing Railway Control.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for theme toggle, smooth scrolling, and mobile menu
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme Toggle
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+            const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    themeToggleLightIcon.classList.remove('hidden');
+                    themeToggleDarkIcon.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeToggleDarkIcon.classList.remove('hidden');
+                    themeToggleLightIcon.classList.add('hidden');
+                }
+            };
+
+            const savedTheme = localStorage.getItem('color-theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else {
+                applyTheme(systemPrefersDark ? 'dark' : 'light');
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                const currentThemeIsDark = document.documentElement.classList.contains('dark');
+                const newTheme = currentThemeIsDark ? 'light' : 'dark';
+                localStorage.setItem('color-theme', newTheme);
+                applyTheme(newTheme);
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
+
